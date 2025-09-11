@@ -285,10 +285,6 @@ include_once(__DIR__.'/utils.php');
 
 <script src="/static/js/dom-to-image.min.js"></script>
 <script src="/static/js/FileSaver.min.js"></script>
-<!--
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4408350776179053"
-     crossorigin="anonymous"></script>
--->
 <style type="text/css">
     html,body{
         background: #f5f6f7;
@@ -1184,17 +1180,6 @@ include_once(__DIR__.'/utils.php');
         </div>
         <div id="ad_right">
         <!-- rightside -->
-         <!--
-        <ins class="adsbygoogle"
-            style="display:block"
-            data-ad-client="ca-pub-4408350776179053"
-            data-ad-slot="5179180574"
-            data-ad-format="auto"
-            data-full-width-responsive="true"></ins>
-        <script>
-            (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-        -->
             <!--
             <a rel="noopener nofollow" target="_blank" style="display:block; flex: 1;position: relative;" @click="">
                 <a>
@@ -1424,32 +1409,10 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
         <div class="adrow">
             <div rel="noopener nofollow"  target="_blank" style="display:flex; align-items: center;justify-content: center;position: relative;" >
                
-               <!-- <ins class="adsbygoogle"
-                    style="display:inline-block;width:320px;height:70px"
-                    data-ad-client="ca-pub-4408350776179053"
-                    data-ad-slot="4051400348"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>-->
             </div>
             <div rel="noopener nofollow"  target="_blank" style="display:flex; align-items: center;justify-content: center;position: relative;" >
-                <!--<ins class="adsbygoogle"
-                    style="display:inline-block;width:320px;height:70px"
-                    data-ad-client="ca-pub-4408350776179053"
-                    data-ad-slot="7771153506">
-                </ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>-->
             </div>
             <div rel="noopener nofollow"  target="_blank" style="display:flex; align-items: center;justify-content: center;position: relative;" >
-                <!--<ins class="adsbygoogle"
-                    style="display:inline-block;width:320px;height:70px"
-                    data-ad-client="ca-pub-4408350776179053"
-                    data-ad-slot="6217526542"></ins>
-                <script>
-                    (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>-->
             </div>
         </div>
         <div style="border-top: 1px solid #f0f0f0;margin-top: 50px;" id="websites-wrap">
