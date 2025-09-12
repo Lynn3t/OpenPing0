@@ -1137,6 +1137,7 @@ include_once(__DIR__.'/utils.php');
 </style>
 
 <div id="check">
+<div id="app">
     <div class="search">
         <div class="container" style="text-align: center;padding-top: 80px;">
             <div class="location" style="display: flex; justify-content: center; align-items: center;">
@@ -1228,7 +1229,9 @@ include_once(__DIR__.'/utils.php');
                         IP 位置
                     </div>
                     <div class="content">
-                        <?php echo $ip_country.' '.$ip_stateOProvince.' '.$ip_city; ?>                        <span class="report" @click="showErrorReport">错误提交</span>
+                        <span v-if="locationInfo">{{ locationInfo }}</span>
+                        <span v-else>正在加载位置信息...</span>
+                        <span class="report" @click="showErrorReport">错误提交</span>
                     </div>
                 </div>
                 <div class="line asn">
@@ -1236,7 +1239,8 @@ include_once(__DIR__.'/utils.php');
                         ASN
                     </div>
                     <div class="content">
-                        <a href="/" target="_blank">AS<?php echo $asnNum; ?></a>
+                        <a href="/" target="_blank" v-if="asnInfo">{{ asnInfo }}</a>
+                        <span v-else>正在获取ASN信息...</span>
                     </div>
                 </div>
                                 <div class="line asnname">
@@ -1244,8 +1248,9 @@ include_once(__DIR__.'/utils.php');
                         ASN 所有者
                     </div>
                     <div class="content">
-                                                <span class="mini label orange" style="background:limegreen;" title="宽带运营商">ISP</span>
-                                                <?php echo $asnName; ?> <span v-if="asndomain.length>0"> — <a :href='asndomain.substr(0,5) === "http:" ? asndomain : "http://"+asndomain' target="_blank">{{asndomain}}</a></span>
+                        <span class="mini label orange" style="background:limegreen;" title="宽带运营商">ISP</span>
+                        <span v-if="asnOwner" v-html="asnOwner"></span>
+                        <span v-else>正在获取ISP信息...</span>
                     </div>
                 </div>
                                 <div class="line orgname">
@@ -1253,8 +1258,9 @@ include_once(__DIR__.'/utils.php');
                         企业
                     </div>
                     <div class="content">
-                                                <span class="mini label orange" style="background:limegreen;" title="宽带运营商">ISP</span>
-                                                <?php echo $asnCompany; ?> <span v-if="orgdomain.length>0"> — <a :href='orgdomain.substr(0,5) === "http:" ? orgdomain : "http://"+orgdomain' target="_blank">{{orgdomain}}</a></span>
+                        <span class="mini label orange" style="background:limegreen;" title="宽带运营商">ISP</span>
+                        <span v-if="organization" v-html="organization"></span>
+                        <span v-else>正在获取企业信息...</span>
                     </div>
                 </div>
                 <div class="line">
@@ -1262,14 +1268,18 @@ include_once(__DIR__.'/utils.php');
                         经度
                     </div>
                     <div class="content">
-                        <?php echo $ip_longitude; ?>                    </div>
+                        <span v-if="longitude">{{ longitude }}</span>
+                        <span v-else>-</span>
+                    </div>
                 </div>
                 <div class="line">
                     <div class="name">
                         纬度
                     </div>
                     <div class="content">
-                        <?php echo $ip_latitude; ?>                    </div>
+                        <span v-if="latitude">{{ latitude }}</span>
+                        <span v-else>-</span>
+                    </div>
                 </div>
                                 <div class="line line-iptype">
                     <div class="name">
@@ -1286,7 +1296,8 @@ Ping0 花费了大量的人力和时间对每一个IP段进行了标识，以准
 '>(说明?)</a>
                     </div>
                     <div class="content">
-                                                <span class="label green">家庭宽带IP</span>
+                        <span v-if="ipType" class="label" :class="ipType === '家庭宽带IP' ? 'green' : 'orange'" :style="ipType === '家庭宽带IP' ? 'background:limegreen;' : ''">{{ ipType }}</span>
+                        <span v-else class="label orange">检测中...</span>
                         
                         <a class="ispwhy" href="/" target="_blank"
                         style="color: #2e67fe;
@@ -1312,13 +1323,42 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
                     </div>
                     <div class="content">
                         <div class="riskbar" style="display: flex;justify-content: center;align-items: center;">
-                                                        <div class="riskitem riskcurrent" style="background:green" title="0-15 极度纯净"><span class="value">0%</span><span class="lab"> 极度纯净</span></div>
-                                                        <div class="riskitem" style="background:limegreen" title="15-25 纯净"></div>
-                                                        <div class="riskitem" style="background:#b2dc5e" title="25-40 中性"></div>
-                                                        <div class="riskitem" style="background:#dddd00" title="40-50 轻微风险"></div>
-                                                        <div class="riskitem" style="background:#ffaa00" title="50-70 稍高风险"></div>
-                                                        <div class="riskitem" style="background:red" title="70-100 极度风险"></div>
-                                                    </div>
+                            <div v-if="riskScore > 0">
+                                <div class="riskitem" :class="riskScore <= 15 ? 'riskcurrent' : ''" :style="'background:' + (riskScore <= 15 ? riskColor : 'green')" title="0-15 极度纯净">
+                                    <template v-if="riskScore <= 15">
+                                        <span class="value">{{ riskScore }}%</span><span class="lab"> {{ riskLevel }}</span>
+                                    </template>
+                                </div>
+                                <div class="riskitem" :class="riskScore > 15 && riskScore <= 25 ? 'riskcurrent' : ''" :style="'background:' + (riskScore > 15 && riskScore <= 25 ? riskColor : 'limegreen')" title="15-25 纯净">
+                                    <template v-if="riskScore > 15 && riskScore <= 25">
+                                        <span class="value">{{ riskScore }}%</span><span class="lab"> {{ riskLevel }}</span>
+                                    </template>
+                                </div>
+                                <div class="riskitem" :class="riskScore > 25 && riskScore <= 40 ? 'riskcurrent' : ''" :style="'background:' + (riskScore > 25 && riskScore <= 40 ? riskColor : '#b2dc5e')" title="25-40 中性">
+                                    <template v-if="riskScore > 25 && riskScore <= 40">
+                                        <span class="value">{{ riskScore }}%</span><span class="lab"> {{ riskLevel }}</span>
+                                    </template>
+                                </div>
+                                <div class="riskitem" :class="riskScore > 40 && riskScore <= 50 ? 'riskcurrent' : ''" :style="'background:' + (riskScore > 40 && riskScore <= 50 ? riskColor : '#dddd00')" title="40-50 轻微风险">
+                                    <template v-if="riskScore > 40 && riskScore <= 50">
+                                        <span class="value">{{ riskScore }}%</span><span class="lab"> {{ riskLevel }}</span>
+                                    </template>
+                                </div>
+                                <div class="riskitem" :class="riskScore > 50 && riskScore <= 70 ? 'riskcurrent' : ''" :style="'background:' + (riskScore > 50 && riskScore <= 70 ? riskColor : '#ffaa00')" title="50-70 稍高风险">
+                                    <template v-if="riskScore > 50 && riskScore <= 70">
+                                        <span class="value">{{ riskScore }}%</span><span class="lab"> {{ riskLevel }}</span>
+                                    </template>
+                                </div>
+                                <div class="riskitem" :class="riskScore > 70 ? 'riskcurrent' : ''" :style="'background:' + (riskScore > 70 ? riskColor : 'red')" title="70-100 极度风险">
+                                    <template v-if="riskScore > 70">
+                                        <span class="value">{{ riskScore }}%</span><span class="lab"> {{ riskLevel }}</span>
+                                    </template>
+                                </div>
+                            </div>
+                            <div v-else>
+                                <span class="label orange">正在评估风险...</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                                 <div class="line line-nativeip">
@@ -1333,8 +1373,9 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
                         </span>
                     </div>
                     <div class="content">
-                                                <?php if($broadcast_status): ?><span class="label orange" style="background: rgb(255, 170, 0);">广播 IP</span><?php else: ?><span class="label orange" style="background:limegreen;">原生 IP</span><?php endif; ?>
-                                            </div>
+                        <span v-if="isNativeIP" class="label orange" :style="isNativeIP === '原生IP' ? 'background:limegreen;' : 'background: rgb(255, 170, 0);'">{{ isNativeIP }}</span>
+                        <span v-else class="label orange">检测中...</span>
+                    </div>
                 </div>
                 
                 <div class="line line-aicheck">
@@ -1377,8 +1418,12 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
                         </span>
                     </div>
                     <div class="content">
-                        <div class="usecountbar" usecount="1 - 10 (极好)" title="1-10(极好), 10-100(一般), 100-1000(风险), 1000-10000(高危), 10000+(极度风险)">
-                        1 - 10 (极好)                        </div>
+                        <div v-if="sharedUsers" class="usecountbar" :usecount="sharedUsers + ' (根据统计)'" :title="'1-10(极好), 10-100(一般), 100-1000(风险), 1000-10000(高危), 10000+(极度风险). 当前: ' + sharedUsers">
+                        {{ sharedUsers }} (根据统计)
+                        </div>
+                        <div v-else class="usecountbar" usecount="检测中..." title="正在检测共享用户数...">
+                        检测中...
+                        </div>
                     </div>
                 </div>
                             </div>
@@ -1470,20 +1515,25 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
     <textarea id="copy" style="width: 1px;height: 1px;opacity: 0;position: absolute;" v-model="copydata" ref="copyele">
 
     </textarea>
-</div>
+</div><!-- End of #app -->
+</div><!-- End of #check -->
 
 <script type="text/javascript">
-    window.ip = '<?php echo $concurrentIpAddr; ?>'
-    window.tar= ''
-    window.ipnum = '114514'
-    window.asndomain = '<?php echo $asnDomain; ?>'
-    window.orgdomain = '<?php echo $asnDomain; ?>'
-    window.rdns = ''
-    window.longitude = '<?php echo $ip_longitude; ?>'
-    window.latitude = '<?php echo $ip_latitude; ?>'
-    window.loc = `<?php echo $ip_country.' '.$ip_stateOProvince.' '.$ip_city; ?>`
+    window.ip = '<?php echo $concurrentIpAddr; ?>';
+    window.tar= '';
+    window.ipnum = '114514';
+    window.asndomain = '<?php echo $asnDomain; ?>';
+    window.orgdomain = '<?php echo $asnDomain; ?>';
+    window.rdns = '';
+    window.longitude = '<?php echo $ip_longitude; ?>';
+    window.latitude = '<?php echo $ip_latitude; ?>';
+    window.loc = `<?php echo $ip_country.' '.$ip_stateOProvince.' '.$ip_city; ?>`;
+    
+    // 调试信息
+    console.log('Window IP:', window.ip);
+    console.log('DOM loaded, initializing Vue app...');
 </script>
-<script src="/static/js/check.js"></script>
+<script src="/static/js/check.js?v=2024120901"></script>
 <script>
 
     document.addEventListener('DOMContentLoaded', function() {

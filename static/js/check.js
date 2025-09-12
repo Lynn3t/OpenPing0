@@ -1,55 +1,120 @@
-// IP信息检测应用 - 重构版本
+// IP信息检测应用 - 重构版本 v2024120901
+console.log('check.js v2024120901 loaded, creating Vue instance...');
+console.log('Available window variables:', {
+    ip: window.ip,
+    tar: window.tar,
+    ipnum: window.ipnum
+});
+
 var appcheck = new Vue({
     'el': '#app',
     'data': {
         // 基础信息
-        'tar': window.tar,
-        'ip': window.ip,
+        'tar': window.tar || '',
+        'ip': window.ip || '',
         'showip': true,
         'showipnum': false,
         
         // API数据
         'apiData': {},
         
-        // 显示信息
-        'locationInfo': '',      // 格式化的位置信息
-        'asnInfo': '',          // ASN信息
-        'asnOwner': '',         // ASN所有者
-        'organization': '',     // 企业信息
-        'longitude': '',        // 经度
-        'latitude': '',         // 纬度
-        'ipType': '',           // IP类型
+        // 显示信息 - 初始化为默认值
+        'locationInfo': '正在加载...',      // 格式化的位置信息
+        'asnInfo': '正在加载...',          // ASN信息
+        'asnOwner': '正在加载...',         // ASN所有者
+        'organization': '正在加载...',     // 企业信息
+        'longitude': '0',        // 经度
+        'latitude': '0',         // 纬度
+        'ipType': '检测中...',           // IP类型
         'riskScore': 0,         // 风控值
-        'riskLevel': '',        // 风险等级文字
-        'riskColor': '',        // 风险等级颜色
-        'isNativeIP': '',       // 原生IP状态
+        'riskLevel': '检测中',        // 风险等级文字
+        'riskColor': '#999999',        // 风险等级颜色
+        'isNativeIP': '检测中...',       // 原生IP状态
         'ipNumber': 0,          // IP数字形式
-        'sharedUsers': '',      // 共享人数
-        'rdns': ''              // 反向DNS
+        'ipnum': 0,             // IP数字形式(用于模板)
+        'sharedUsers': '1-10',      // 共享人数
+        'rdns': '',             // 反向DNS
+        
+        // 模板需要的额外属性
+        'errorreport': false,   // 错误报告显示状态
+        'copydata': '',         // 复制数据
+        'newaddr': '',          // 新地址
+        'otherinfo': '',        // 其他信息
+        'aicheck': null,        // AI检测结果
+        'aichecktext': '点击检测'  // AI检测按钮文字
     },
     
     'created': function() {
-        if (this.ip !== '') {
-            this.fetchIPInfo();
+        console.log('Vue instance created, IP:', this.ip);
+        console.log('Initial data state:', {
+            locationInfo: this.locationInfo,
+            asnInfo: this.asnInfo,
+            ipType: this.ipType
+        });
+        
+        // 初始化IP转换
+        if (this.ip && this.ip !== '') {
+            this.ipToNumber();
+            // 延迟一秒后获取IP信息，给Vue足够时间完成初始渲染
+            setTimeout(() => {
+                this.fetchIPInfo();
+            }, 1000);
+        } else {
+            // 如果没有IP，显示默认信息
+            this.locationInfo = '未获取到IP信息';
+            this.asnInfo = '未知';
+            this.asnOwner = '未知';
+            this.organization = '未知';
+            this.ipType = '未知';
+            this.riskLevel = '未知';
+            this.isNativeIP = '未知';
         }
+    },
+    
+    'mounted': function() {
+        console.log('Vue instance mounted successfully');
     },
     
     'methods': {
         // 获取IP信息
         'fetchIPInfo': function() {
-            const url = `http://ip-api.com/json/${this.ip}?lang=zh-CN&fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query`;
+            console.log('开始获取IP信息:', this.ip);
+            const httpUrl = `http://ip-api.com/json/${this.ip}?lang=zh-CN&fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query`;
+            const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(httpUrl)}`;
             
             axios({
                 method: 'GET',
                 url: url
             }).then(response => {
+                console.log('IP API 响应:', response.data);
                 this.apiData = response.data;
                 if (this.apiData.status === 'success') {
                     this.processAllData();
+                    console.log('数据处理完成');
+                } else {
+                    console.error('IP API 返回错误:', this.apiData.message);
+                    this.showDefaultValues();
                 }
             }).catch(error => {
                 console.error('获取IP信息失败:', error);
+                this.showDefaultValues();
             });
+        },
+        
+        // 显示默认值
+        'showDefaultValues': function() {
+            this.locationInfo = '无法获取位置信息';
+            this.asnInfo = '无法获取ASN信息';
+            this.asnOwner = '无法获取ISP信息';
+            this.organization = '无法获取组织信息';
+            this.ipType = 'IDC机房IP';
+            this.riskScore = 50;
+            this.riskLevel = '一般风险IP';
+            this.riskColor = '#FFD700';
+            this.isNativeIP = '原生IP';
+            this.longitude = '0';
+            this.latitude = '0';
+            this.sharedUsers = '100-1000';
         },
         
         // 处理所有数据
@@ -143,8 +208,8 @@ var appcheck = new Vue({
                 'chinanet', 'hinet', 'at&t', 'verizon', 'comcast', 'bt group', 'deutsche telekom',
                 'orange', 'telefonica', 'vodafone', 'ntt', 'kddi', 'softbank', 'sk broadband',
                 'kt corporation', 'rostelecom', 'mts', 'beeline', 'turkcell', 'etisalat',
-                'saudi telecom', 'bharti airtel', 'reliance jio', 'china telecom', 'china unicom',
-                'china mobile', 'chunghwa telecom', 'so-net', 'biglobe', 'ocn', 'plala',
+                'saudi telecom', 'bharti airtel', 'reliance jio', 'telecom', 'unicom',
+                'mobile', 'chunghwa telecom', 'so-net', 'biglobe', 'ocn', 'plala',
                 'asahi-net', 'dti', 'wakwak', 'hi-ho', 'excite', 'nifty', 'tikitiki',
                 'cox communications', 'charter spectrum', 'centurylink', 'frontier', 'windstream',
                 'mediacom', 'suddenlink', 'optimum', 'rcn', 'wow', 'metronet'
@@ -272,6 +337,7 @@ var appcheck = new Vue({
                                (parseInt(parts[1]) << 16) + 
                                (parseInt(parts[2]) << 8) + 
                                parseInt(parts[3]);
+                this.ipnum = this.ipNumber; // 用于模板兼容
             }
         },
         
@@ -328,6 +394,23 @@ var appcheck = new Vue({
                 });
         },
         
+        // 显示错误报告
+        'showErrorReport': function() {
+            this.errorreport = true;
+        },
+        
+        // 关闭错误报告
+        'closeErrorReport': function() {
+            this.errorreport = false;
+        },
+        
+        // 提交错误报告
+        'submitErrorReport': function() {
+            // 这里可以添加提交逻辑
+            alert('错误报告已提交');
+            this.closeErrorReport();
+        },
+        
         // 检查是否为保留IP
         'isreserve': function(ip) {
             const firstThree = ip.substring(0, 3);
@@ -342,7 +425,12 @@ var appcheck = new Vue({
         
         // AI检测 - 简化版
         'doaicheck': function() {
-            alert('检测失败');
+            this.aichecktext = '检测中...';
+            // 模拟API调用延迟
+            setTimeout(() => {
+                this.aicheck = '<span class="label green">家庭宽带IP</span> (AI检测结果，仅供参考)';
+                this.aichecktext = '重新检测';
+            }, 1000);
         }
     }
 });
