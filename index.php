@@ -16,7 +16,7 @@ include_once(__DIR__.'/utils.php');
         html, body{
             margin: 0;
             padding: 0;
-            background: #ebebeb url('/static/images/light.png');
+            background: #000;
             overflow: auto;
         }
         body{
@@ -287,7 +287,7 @@ include_once(__DIR__.'/utils.php');
 <script src="/static/js/FileSaver.min.js"></script>
 <style type="text/css">
     html,body{
-        background: #f5f6f7;
+        background: #000;
         font-family: "微软雅黑";
         font-size: 14px;
         overflow: auto;
@@ -295,12 +295,12 @@ include_once(__DIR__.'/utils.php');
     #check{
         margin-bottom: 100px;
     }
-    #check>.search{
+    #check #app .search{
         background: #00050a;
         width: 100%;
         height: 500px;
     }
-    #check>.search .input>input{
+    #check #app .search .input>input{
         width: 700px;
         height: 60px;
         padding: 10px;
@@ -314,7 +314,7 @@ include_once(__DIR__.'/utils.php');
         text-align: center;
         margin-top: 15px;
     }
-    #check>.search .op>button{
+    #check #app .search .op>button{
         width: 100px;
         height: 40px;
         line-height: 40px;
@@ -328,7 +328,7 @@ include_once(__DIR__.'/utils.php');
         outline: 0;
         margin-top: 15px;
     }
-    #check>.search .op>button:hover{
+    #check #app .search .op>button:hover{
         color: #0096e6;
     }
     #check>.container{
@@ -861,17 +861,17 @@ include_once(__DIR__.'/utils.php');
             margin-bottom: 10px;
             position: relative;
         }
-        #check>.search{
+        #check #app .search{
             padding: 0 20px;
             box-sizing: border-box;
         }
-        #check>.search>.container{
+        #check #app .search>.container{
             padding-top: 30px !important;
         }
-        #check>.search .input>input{
+        #check #app .search .input>input{
             width: 100%;
         }
-        #check>.search .op>button{
+        #check #app .search .op>button{
             width: 100%;
             height: 60px;
             border-radius: 10px;
@@ -969,13 +969,13 @@ include_once(__DIR__.'/utils.php');
         #websites-wrap{
             display: none;
         }
-        #check>.search .input>input{
+        #check #app .search .input>input{
             height: 50px;
             line-height: 50px;
             font-size: 20px;
             border-radius: 8px;
         }
-        #check>.search .op>button{
+        #check #app .search .op>button{
             height: 50px;
             border-radius: 8px;
         }
@@ -1322,42 +1322,11 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
                         </span>
                     </div>
                     <div class="content">
-                        <div class="riskbar" style="display: flex;justify-content: center;align-items: center;">
-                            <div v-if="riskScore > 0">
-                                <div class="riskitem" :class="riskScore <= 15 ? 'riskcurrent' : ''" :style="'background:' + (riskScore <= 15 ? riskColor : 'green')" title="0-15 极度纯净">
-                                    <template v-if="riskScore <= 15">
-                                        <span class="value">{{ riskScore }}%</span><span class="lab"> {{ riskLevel }}</span>
-                                    </template>
-                                </div>
-                                <div class="riskitem" :class="riskScore > 15 && riskScore <= 25 ? 'riskcurrent' : ''" :style="'background:' + (riskScore > 15 && riskScore <= 25 ? riskColor : 'limegreen')" title="15-25 纯净">
-                                    <template v-if="riskScore > 15 && riskScore <= 25">
-                                        <span class="value">{{ riskScore }}%</span><span class="lab"> {{ riskLevel }}</span>
-                                    </template>
-                                </div>
-                                <div class="riskitem" :class="riskScore > 25 && riskScore <= 40 ? 'riskcurrent' : ''" :style="'background:' + (riskScore > 25 && riskScore <= 40 ? riskColor : '#b2dc5e')" title="25-40 中性">
-                                    <template v-if="riskScore > 25 && riskScore <= 40">
-                                        <span class="value">{{ riskScore }}%</span><span class="lab"> {{ riskLevel }}</span>
-                                    </template>
-                                </div>
-                                <div class="riskitem" :class="riskScore > 40 && riskScore <= 50 ? 'riskcurrent' : ''" :style="'background:' + (riskScore > 40 && riskScore <= 50 ? riskColor : '#dddd00')" title="40-50 轻微风险">
-                                    <template v-if="riskScore > 40 && riskScore <= 50">
-                                        <span class="value">{{ riskScore }}%</span><span class="lab"> {{ riskLevel }}</span>
-                                    </template>
-                                </div>
-                                <div class="riskitem" :class="riskScore > 50 && riskScore <= 70 ? 'riskcurrent' : ''" :style="'background:' + (riskScore > 50 && riskScore <= 70 ? riskColor : '#ffaa00')" title="50-70 稍高风险">
-                                    <template v-if="riskScore > 50 && riskScore <= 70">
-                                        <span class="value">{{ riskScore }}%</span><span class="lab"> {{ riskLevel }}</span>
-                                    </template>
-                                </div>
-                                <div class="riskitem" :class="riskScore > 70 ? 'riskcurrent' : ''" :style="'background:' + (riskScore > 70 ? riskColor : 'red')" title="70-100 极度风险">
-                                    <template v-if="riskScore > 70">
-                                        <span class="value">{{ riskScore }}%</span><span class="lab"> {{ riskLevel }}</span>
-                                    </template>
-                                </div>
-                            </div>
-                            <div v-else>
-                                <span class="label orange">正在评估风险...</span>
-                            </div>
+                        <div style="display: flex;justify-content: center;align-items: center;">
+                            <span v-if="riskScore > 0" class="label" :style="{background: riskColor}" :title="'风险值: ' + riskScore + '%'">
+                                {{ riskScore }}% {{ riskLevel }}
+                            </span>
+                            <span v-else class="label orange">正在评估风险...</span>
                         </div>
                     </div>
                 </div>
