@@ -134,6 +134,16 @@ var appcheck = new Vue({
                 }
             }
             
+            // 处理国旗显示
+            if (manualData.locationInfo && manualData.countryCode) {
+                const countryFlag = this.getCountryFlag(manualData.countryCode);
+                // 如果位置信息中还没有国旗，则添加国旗
+                if (!this.locationInfo.includes('<img')) {
+                    this.locationInfo = `${countryFlag} ${this.locationInfo}`;
+                    console.log('添加国旗到位置信息:', this.locationInfo);
+                }
+            }
+            
             // 确保风险评估完成 - 如果riskScore为0，也认为是有效的风险评估结果
             if (manualData.hasOwnProperty('riskScore')) {
                 console.log('风险评估已完成，riskScore:', this.riskScore);

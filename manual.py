@@ -83,7 +83,7 @@ class ManualIPAnnotation:
                 'ipnum': 0,
                 'sharedUsers': '1-10 (极好)',
                 'rdns': '',
-                'countryFlag': ''
+                'countryCode': ''  # 国家代码，用于显示国旗
             }
             
             # 更新提供的数据
@@ -226,10 +226,10 @@ class ManualIPAnnotation:
         if rdns:
             data['rdns'] = rdns
         
-        # 国家标志
-        country_flag = input("国家标志（如：CN）: ").strip()
-        if country_flag:
-            data['countryFlag'] = country_flag
+        # 国家代码
+        country_code = input("国家代码（如：CN）: ").strip()
+        if country_code:
+            data['countryCode'] = country_code.upper()  # 转换为大写
         
         # 添加条目
         if self.add_manual_entry(ip, **data):
