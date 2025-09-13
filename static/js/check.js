@@ -288,7 +288,7 @@ var appcheck = new Vue({
                 'mobile', 'chunghwa telecom', 'so-net', 'biglobe', 'ocn', 'plala',
                 'asahi-net', 'dti', 'wakwak', 'hi-ho', 'excite', 'nifty', 'tikitiki',
                 'cox communications', 'charter spectrum', 'centurylink', 'frontier', 'windstream',
-                'mediacom', 'suddenlink', 'optimum', 'rcn', 'wow', 'metronet'
+                'mediacom', 'suddenlink', 'optimum', 'rcn', 'wow', 'metronet', 'CHINA169'
             ];
         },
         
