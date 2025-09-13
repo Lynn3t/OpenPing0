@@ -382,7 +382,7 @@ var appcheck = new Vue({
             if (!countryCode) return '';
             
             const lowerCode = countryCode.toLowerCase();
-            return `<img src="https://hampusborgos.github.io/country-flags/svg/${lowerCode}.svg" alt="${countryCode}" style="width: 16px; height: 12px; display: inline-block; vertical-align: middle; margin-right: 4px;">`;
+            return `<img src="https://cdn.jsdelivr.net/gh/hampusborgos/country-flags@main/svg/${lowerCode}.svg" alt="${countryCode}" style="width: 16px; height: 12px; display: inline-block; vertical-align: middle; margin-right: 4px;">`;
         },
         
         // 保留的原有方法

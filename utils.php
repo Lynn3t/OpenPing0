@@ -21,30 +21,36 @@ if (count($parts) >= 2 && strtolower($parts[0]) === 'ip') {
         exit;
     }
     
-    // IP地址验证
-    if (filter_var($candidate, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ||
-        filter_var($candidate, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+    // IP地址验证 - 优先IPv4，拒绝IPv6
+    if (filter_var($candidate, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
         $routeIp = $candidate;
     } elseif (preg_match('/^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/', $candidate)) {
-        // 域名解析
+        // 域名解析 - 仅解析为IPv4
         $resolvedIp = gethostbyname($candidate);
-        if (filter_var($resolvedIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4) ||
-            filter_var($resolvedIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV6)) {
+        if (filter_var($resolvedIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
             $routeIp = $resolvedIp;
         }
     }
 }
 
-// 获取用户IP
+// 获取用户IP - 仅IPv4
 $userIp = '';
 if ($routeIp !== null) {
     $userIp = $routeIp;
 } else {
     if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
         $forwardedIps = explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']);
-        $userIp = trim($forwardedIps[0]);
+        $candidateIp = trim($forwardedIps[0]);
+        // 验证是否为IPv4
+        if (filter_var($candidateIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            $userIp = $candidateIp;
+        }
     } else {
-        $userIp = $_SERVER['REMOTE_ADDR'] ?? '';
+        $candidateIp = $_SERVER['REMOTE_ADDR'] ?? '';
+        // 验证是否为IPv4
+        if (filter_var($candidateIp, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) {
+            $userIp = $candidateIp;
+        }
     }
 }
 
