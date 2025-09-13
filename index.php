@@ -9,7 +9,7 @@ include_once(__DIR__.'/utils.php');
     <meta name="referrer" content="unsafe-url">
     <script src="/static/js/vue.min.js"></script>
     <script src="/static/js/axios.min.js"></script>
-    <link rel="icon" href="/favico.ico?v=1475298169" type="image/x-icon" />
+    <link rel="icon" href="/favico.ico" type="image/x-icon" />
     <title><?php echo $concurrentIpAddr; ?>-高精度IP地址归属地查询-IP风控值查询-原生IP查询-IP类型查询-家庭宽带IP查询-全球小鸡监控平台</title>
     <meta name="description" content="<?php echo $concurrentIpAddr.'-'.$asnNum.'-'.$asnName.'-'.$asnDomain; ?>">
     <style type="text/css">
@@ -1222,9 +1222,9 @@ include_once(__DIR__.'/utils.php');
                         <span v-if="rdns.length>0">({{rdns}})</span>
 
                         <div class="op">
-                            <a target="_blank" href="/">ping</a>
+                            <a target="_blank" href="https://ping.pe/<?php echo $concurrentIpAddr; ?>">ping</a>
                             |
-                            <a target="_blank" href="/">trace</a>
+                            <a target="_blank" href="https://bgp.ping.pe/<?php echo $concurrentIpAddr; ?>">trace</a>
                         </div>
 
                     </div>

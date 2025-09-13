@@ -433,6 +433,8 @@ var appcheck = new Vue({
                     if (userIP && userIP.match(/^\d+\.\d+\.\d+\.\d+$/)) {
                         console.log('获取到用户IP:', userIP);
                         this.ip = userIP;
+                        this.updatePageTitle();
+                        this.updatePingTraceLinks();
                         this.ipToNumber();
                         setTimeout(() => {
                             this.fetchIPInfo();
@@ -470,6 +472,8 @@ var appcheck = new Vue({
                         if (userIP && userIP.match(/^\d+\.\d+\.\d+\.\d+$/)) {
                             console.log('通过备用服务获取到用户IP:', userIP);
                             this.ip = userIP;
+                            this.updatePageTitle();
+                            this.updatePingTraceLinks();
                             this.ipToNumber();
                             setTimeout(() => {
                                 this.fetchIPInfo();
@@ -497,6 +501,29 @@ var appcheck = new Vue({
                 this.aicheck = '<span class="label green">我不知道！！</span>';
                 this.aichecktext = '重新检测';
             }, 1000);
+        },
+        
+        // 更新页面标题
+        'updatePageTitle': function() {
+            if (this.ip) {
+                document.title = `${this.ip}-高精度IP地址归属地查询-IP风控值查询-原生IP查询-IP类型查询-家庭宽带IP查询-全球小鸡监控平台`;
+            }
+        },
+        
+        // 更新ping和trace链接
+        'updatePingTraceLinks': function() {
+            if (this.ip) {
+                const pingLinks = document.querySelectorAll('a[href*="ping.pe"]');
+                const traceLinks = document.querySelectorAll('a[href*="bgp.ping.pe"]');
+                
+                pingLinks.forEach(link => {
+                    link.href = `https://ping.pe/${this.ip}`;
+                });
+                
+                traceLinks.forEach(link => {
+                    link.href = `https://bgp.ping.pe/${this.ip}`;
+                });
+            }
         }
     }
 });
