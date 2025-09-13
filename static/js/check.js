@@ -134,6 +134,11 @@ var appcheck = new Vue({
                 }
             }
             
+            // 确保风险评估完成 - 如果riskScore为0，也认为是有效的风险评估结果
+            if (manualData.hasOwnProperty('riskScore')) {
+                console.log('风险评估已完成，riskScore:', this.riskScore);
+            }
+            
             console.log('手动标注数据应用完成');
         },
         

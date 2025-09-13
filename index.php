@@ -1211,7 +1211,7 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
                     </div>
                     <div class="content">
                         <div style="display: flex;justify-content: center;align-items: center;">
-                            <span v-if="riskScore > 0" class="label" :style="{background: riskColor}" :title="'风险值: ' + riskScore + '%'">
+                            <span v-if="riskScore >= 0 && riskLevel !== '检测中'" class="label" :style="{background: riskColor}" :title="'风险值: ' + riskScore + '%'">
                                 {{ riskScore }}% {{ riskLevel }}
                             </span>
                             <span v-else class="label orange">正在评估风险...</span>
