@@ -1,0 +1,38 @@
+{
+  "8.8.8.8": {
+    "locationInfo": "<img src='/static/images/flags/us.png' alt=''>美国 加利福尼亚 山景城",
+    "asnInfo": "AS15169",
+    "asnOwner": "Google LLC",
+    "organization": "Google LLC",
+    "longitude": "-122.0574",
+    "latitude": "37.4192",
+    "ipType": "IDC机房IP",
+    "riskScore": 5,
+    "riskLevel": "安全",
+    "riskColor": "#4CAF50",
+    "isNativeIP": "原生IP",
+    "ipNumber": 134744072,
+    "ipnum": 134744072,
+    "sharedUsers": "10000+ (极度风险)",
+    "rdns": "dns.google",
+    "countryFlag": "US"
+  },
+  "1.1.1.1": {
+    "locationInfo": "<img src='/static/images/flags/us.png' alt=''>美国 加利福尼亚 旧金山",
+    "asnInfo": "AS13335",
+    "asnOwner": "Cloudflare, Inc.",
+    "organization": "Cloudflare, Inc.",
+    "longitude": "-122.3972",
+    "latitude": "37.7749",
+    "ipType": "IDC机房IP",
+    "riskScore": 3,
+    "riskLevel": "安全",
+    "riskColor": "#4CAF50",
+    "isNativeIP": "原生IP",
+    "ipNumber": 16843009,
+    "ipnum": 16843009,
+    "sharedUsers": "10000+ (极度风险)",
+    "rdns": "one.one.one.one",
+    "countryFlag": "US"
+  }
+}

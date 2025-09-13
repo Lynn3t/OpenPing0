@@ -149,19 +149,19 @@ include_once(__DIR__.'/utils.php');
             <img src="/static/images/menu.png" alt="">
         </div>
         <div class="tabs">
-            <a :class="{'active': activeItem == 'ipcheck'}" href="/">
+            <a :class="{'active': activeItem == 'ipcheck'}" href="https://ip.fimall.lol/">
                 IP 查询
                 <sup style="color:red;margin-left: 2px;"></sup>
             </a>
-            <a :class="{'active': activeItem == 'latency'}" href="/">
+            <a :class="{'active': activeItem == 'latency'}" href="https://ping.pe/">
                 Latency
                 <sup style="color:red;margin-left: 2px;">New</sup>
             </a>
-            <a :class="{'active': activeItem == 'ping'}" href="/">
+            <a :class="{'active': activeItem == 'ping'}" href="https://ping.pe/">
                 Ping
             </a>
 
-            <a :class="{'active': activeItem == 'trace'}" href="/">
+            <a :class="{'active': activeItem == 'trace'}" href="https://bgp.ping.pe/">
                 Trace
 
             </a>
@@ -186,10 +186,10 @@ include_once(__DIR__.'/utils.php');
                 </div>
             </div>
 
-            <a :class="{'active': activeItem == 'asnmon'}" href="/">
+            <a :class="{'active': activeItem == 'asnmon'}" href="https://ipinfo.io/">
                 ASN 变化监控
             </a>
-            <a :class="{'active': activeItem == 'ipleak'}" href="/">
+            <a :class="{'active': activeItem == 'ipleak'}" href="https://dnsleaktest.com/">
                 IP Leak 检测
             </a>
             <!--
@@ -197,7 +197,7 @@ include_once(__DIR__.'/utils.php');
                 端口检测
             </a>
             -->
-            <a :class="{'active': activeItem == 'api'}" href="/">
+            <a :class="{'active': activeItem == 'api'}" href="https://ip-api.com/">
                 API接口
                 <sup style="color:red;margin-left: 2px;"></sup>
             </a>
@@ -272,14 +272,6 @@ include_once(__DIR__.'/utils.php');
         oScript.type = "text/javascript";
         oScript.src="/";
         oHead.appendChild( oScript);
-    }
-    function trackad(id) {
-        axios({
-            method:'get',
-            url:'/trackad/'+id
-        }).then((res)=> {
-
-        })
     }
 </script>
 
@@ -769,75 +761,6 @@ include_once(__DIR__.'/utils.php');
     .usecountbar[usecount='检测中...']{
         background: #888;
     }
-    .tipad,.closead{
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: rgba(0,0, 0, 0.1);
-        color: #fff;
-        z-index: 3;
-        display: block;
-        font-size: 12px;
-        transform: scale(0.8);
-    }
-    .closead{
-        left: 0px;
-        right: auto;
-        cursor: pointer;
-        z-index: 4;
-    }
-    .adrow{
-        width: 100%;
-        height: 70px;
-        display: flex;
-        gap: 10px;
-        margin: 10px 0;
-        color: #888;
-    }
-    .adrow img{
-        border-radius: 10px;
-    }
-    .websites{
-        display: flex;
-        flex-wrap: wrap;
-        align-items: center;
-        gap: 10px;
-    }
-    .websites>a{
-        margin-top: 10px;
-        overflow:hidden; 
-        width:130px;
-        height: 30px;
-    }
-    .websites>a>img{
-        width: 130px;
-        height: 30px;
-        border-radius: 3px;
-    }
-    #ad_right{
-        position: absolute;
-        display: flex;
-        flex-direction:column;
-        right: 0;
-        margin-right:-265px;
-        top:245px;
-        width: 260px;
-        height: 1200px;
-    }
-    #ad_right>div{
-        width: 260px;
-        height: 260px;
-    }
-    /*
-    #ad_right>a{
-        border-bottom: 1px solid #aaa;
-        background: #f0f0f0 !important;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 260px;
-        height: 80px;
-    }*/
     
     @media screen and (max-width: 1919px) {
         .container{
@@ -951,11 +874,6 @@ include_once(__DIR__.'/utils.php');
         }
     }
     @media screen and (max-width: 1200px){
-        .adrow{
-            margin-left: 10px;
-            margin-right: 10px;
-            width: auto;
-        }
         .toprow{
             margin-top: 50px;
         }
@@ -963,16 +881,10 @@ include_once(__DIR__.'/utils.php');
             min-width: auto;
             overflow-x: auto;
         }
-        #ad_right{
-            display: none;
-        }
     }
     @media screen and (max-width: 800px) {
         .ispwhy{
            display: none;
-        }
-        #websites-wrap{
-            display: none;
         }
         #check #app .search .input>input{
             height: 50px;
@@ -1159,43 +1071,6 @@ include_once(__DIR__.'/utils.php');
         </div>
     </div>
     <div class="container">
-        <div class="adrow toprow">
-            <a rel="noopener nofollow" href="https://www.die.lu" target="_blank" style="display:block; flex: 1;position: relative;" @click="trackad(3)">
-                <span class="closead">关闭</span>
-                <span class="tipad">广告</span>
-                <img src="/static/images/ad/8c0e97165f9193cadf2d90966867b770.gif" width="100%" style="max-height: 70px;">
-            </a>
-            <a rel="noopener nofollow" href="https://www.cheatfirst.com" target="_blank" style="display:block; flex: 1;position: relative;" @click="trackad(7)">
-                <span class="closead">关闭</span>
-                <span class="tipad">广告</span>
-                <img src="/static/images/ad/1cda98b9d4a5e24751ee79447e5a2148.gif" width="100%" style="max-height: 70px;">
-            </a>
-            <a rel="noopener nofollow" href="https://www.62v.net" target="_blank" style="display:block; flex: 1;position: relative;" @click="trackad(8)">
-                <span class="closead">关闭</span>
-                <span class="tipad">广告</span>
-                <img src="/static/images/ad/68b1bff33a5e068b1c0a6cbb71.gif" width="100%" style="max-height: 70px;">
-            </a>
-        </div>
-        <div id="ad_left" style="position: absolute;display: none;flex-direction:column;height: 600px;width: 80px;left:0;margin-left: -90px;">
-            <div style="display: flex;flex:1;align-items: center;justify-content: center;">
-                80 x 300
-            </div>
-            <div style="display: flex;flex:1;align-items: center;justify-content: center;">
-                30 x 300
-            </div>
-        </div>
-        <div id="ad_right">
-        <!-- rightside -->
-            <!--
-            <a rel="noopener nofollow" target="_blank" style="display:block; flex: 1;position: relative;" @click="">
-                <a>
-                <span class="closead">关闭</span>
-                <span class="tipad">广告</span>
-                <img src="/static/images/ad/4cdf762904f219b76197c147e0b91cb5.png" width="100%" style="max-height: 100%;">
-            </a>
-        -->
-        
-        </div>
         <div class="info asninfo">
             <div class="title">
                 <div>
@@ -1410,64 +1285,6 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
                 </div>
                             </div>
         </div>
-        <div class="adrow">
-        <a rel="noopener nofollow" target="_blank" style="display:block; flex: 1;position: relative;">
-        
-        </a>
-        <a rel="noopener nofollow" href="/" target="_blank" style="display:block; flex: 1;position: relative;" @click="trackad(5)">
-            <span class="closead">关闭</span>
-            <span class="tipad">广告</span>
-            <img src="/static/images/ad/189722caa53bcad8d2e7c2e0e1048d5f.png" width="100%" style="max-height: 100%;">
-        </a>
-        <a rel="noopener nofollow" target="_blank" style="display:block; flex: 1;position: relative;">
-            
-        </a>
-    </div>
-        <div class="adrow" style="display: none;">
-            <a rel="noopener nofollow" href="" target="_blank" style="display:block; flex: 1;position: relative;" @click="trackad(2)">
-            </a>
-            <a rel="noopener nofollow" target="_blank" style="display:block; flex: 1;position: relative;">
-                
-            </a>
-            <a rel="noopener nofollow" target="_blank" style="display:block; flex: 1;position: relative;">
-                
-            </a>
-        </div>
-        <div class="adrow">
-            <div rel="noopener nofollow"  target="_blank" style="display:flex; align-items: center;justify-content: center;position: relative;" >
-               
-            </div>
-            <div rel="noopener nofollow"  target="_blank" style="display:flex; align-items: center;justify-content: center;position: relative;" >
-            </div>
-            <div rel="noopener nofollow"  target="_blank" style="display:flex; align-items: center;justify-content: center;position: relative;" >
-            </div>
-        </div>
-        <div style="border-top: 1px solid #f0f0f0;margin-top: 50px;" id="websites-wrap">
-            <p style="height: 24px;line-height: 24px;margin-bottom: 0;margin-left:15px; border-bottom: 1px dashed;padding-bottom: 10px;">网站大全</p>
-            <div class="websites">
-                <a href="/" target="_blank" rel="noopener nofollow sponsored" @click="trackad(1001)" title="IP资源整段定制，BYO-IP，IPTransit，服务器租用，机柜租用">
-                    <img src="/static/images/ad/subset/2fe2b11e6227339155287b02da2fc0b7.png" alt="">
-                </a>
-                <a href="/" target="_blank" rel="noopener nofollow sponsored" @click="trackad(1002)" title="全球领先的代理IP服务提供商，企业级代理IP解决方案，覆盖全球200多个国家和地区的代理资源。根据您的业务需求，精准定制独享代理IP，拥有极致性价比的服务，平台专注于为企业提供全面、专业、完善的一站式解决方案，全方位满足跨境电商和社交媒体营销的各类需求。全球代理IP日新增50000+纯净住宅IP，高效，稳定，支持免费测试，API/账密一键提取，动静态住宅，数据中心任您选择，支持1V1定制量身打造解决方案，公司售后团队7×24小时保驾护航，支持免费测试。目前服务5000多家公司与个人，获得广泛好评！">
-                    <img src="/static/images/ad/subset/2fe2b11e6227339155287b02da2fc0b8.jpg" alt="">
-                </a>
-                <a href="/" target="_blank" rel="noopener nofollow sponsored" @click="trackad(1003)" title="我们提供从未使用过的、独享代理 IP， 支持静态/动态住宅及数据中心代理，覆盖全球 200+ 国家地区，全天真人客服在线沟通。立即领取 200MB 免费流量，限时福利！">
-                    <img src="/static/images/ad/subset/86a8d4cccb728bab9dddce2901e04959.png" alt="">
-                </a>
-                <a href="/" target="_blank" rel="noopener nofollow sponsored" @click="trackad(1004)" title="Insta IP 提供高性价比的纯净独享静态住宅 IP 和tiktok直播专线，适用于社媒矩阵、店群养号、涨粉引流等多种场景，助力跨境商家拓展全球市场。">
-                    <img src="/static/images/ad/subset/417d1d71a680857961d06af7e35bce91.jpg" alt="">
-                </a>
-                <a href="/" target="_blank" rel="noopener nofollow sponsored" @click="trackad(1005)" title="我们的品牌：IPdodo；主营海外住宅IP和跨境国际专线网络，纯净住宅IP适配tk/fb/ins等平台使用，支持IP直连，提升网络稳定性。">
-                    <img src="/static/images/ad/subset/84c1b58718073c9803888cc2555dca58.jpg" alt="">
-                </a>
-                <a href="/" target="_blank" rel="noopener nofollow sponsored" @click="trackad(1006)" title="Tiktok矩阵管理系统, 专业级人工智能驱动的TikTok账号自动化批量管理平台，实现多账号矩阵式管理与全自动批量化运营，让您的TikTok业务轻松扩展。">
-                    <img src="/static/images/ad/subset/5088dd70e71f73cce0354031202a5619.png" alt="">
-                </a>
-                <a href="/" target="_blank" rel="noopener nofollow sponsored" @click="trackad(1007)" title="全球领先代理IP服务，提供纯净独享的静态住宅IP、数据中心IP、动态住宅7000W代理IP池，高速稳定，免费试用。">
-                    <img src="/static/images/ad/subset/6e580e53ef140296260b34167e53ab52.png" alt="">
-                </a>
-            </div>
-        </div>
         
     </div>
     <div id="error_report" v-show="errorreport" style="display: none;">
@@ -1516,49 +1333,6 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
     console.log('DOM loaded, initializing Vue app...');
 </script>
 <script src="/static/js/check.js?v=<?php echo date('YmdHis'); ?>"></script>
-<script>
-
-    document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.closead').forEach(function(element) {
-        element.addEventListener('click', function(event) {
-            event.preventDefault();
-            event.stopPropagation();
-            this.parentNode.style.visibility = 'hidden';
-        });
-    })
-    var width = document.documentElement.clientWidth
-    if (width < 700) {
-        const rows = document.querySelectorAll('.adrow');
-        rows.forEach(row => {
-            const links = row.querySelectorAll('a');
-            const validLinks = Array.from(links).filter(link => link.querySelector('img') !== null);
-            links.forEach(link => link.style.display = 'none');
-            if (validLinks.length > 0) {
-                const randomIndex = Math.floor(Math.random() * validLinks.length);
-                validLinks[randomIndex].style.display = 'flex';
-            }
-        });
-    }
-    else if (width < 1100) {
-        const rows = document.querySelectorAll('.adrow');
-        rows.forEach(row => {
-            const links = row.querySelectorAll('a');
-            const validLinks = Array.from(links).filter(link => link.querySelector('img') !== null);
-            links.forEach(link => link.style.display = 'none');
-
-            if (validLinks.length >= 2) {
-                const shuffled = [...validLinks].sort(() => Math.random() - 0.5);
-                shuffled.slice(0, 2).forEach(link => {
-                    link.style.display = 'flex';
-                });
-            } else if (validLinks.length === 1) {
-                validLinks[0].style.display = 'flex';
-                links[2].style.display = 'flex';
-            }
-        })
-    }
-    });
-</script>
 <style>
     .bottommenu{
         display: none;

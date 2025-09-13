@@ -69,9 +69,63 @@ var appcheck = new Vue({
     },
     
     'methods': {
-        // 获取IP信息
+        // 检查手动标注并获取IP信息
         'fetchIPInfo': function() {
             console.log('开始获取IP信息:', this.ip);
+            
+            // 首先检查手动标注
+            this.checkManualAnnotation().then(manualData => {
+                if (manualData) {
+                    console.log('使用手动标注数据:', manualData);
+                    this.applyManualData(manualData);
+                } else {
+                    // 没有手动标注，使用API获取数据
+                    this.fetchFromAPI();
+                }
+            }).catch(error => {
+                console.warn('加载手动标注失败，使用API获取:', error);
+                this.fetchFromAPI();
+            });
+        },
+        
+        // 检查手动标注
+        'checkManualAnnotation': function() {
+            return axios({
+                method: 'GET',
+                url: './manual.json',
+                timeout: 5000
+            }).then(response => {
+                console.log('手动标注文件加载成功:', response.data);
+                const manualData = response.data[this.ip];
+                if (manualData) {
+                    console.log(`找到IP ${this.ip} 的手动标注:`, manualData);
+                    return manualData;
+                }
+                return null;
+            }).catch(error => {
+                console.log('手动标注文件不存在或加载失败:', error.message);
+                return null;
+            });
+        },
+        
+        // 应用手动标注数据
+        'applyManualData': function(manualData) {
+            console.log('应用手动标注数据');
+            
+            // 直接应用所有手动标注的字段
+            for (const [key, value] of Object.entries(manualData)) {
+                if (this.hasOwnProperty(key) && value !== undefined && value !== null) {
+                    this[key] = value;
+                    console.log(`设置 ${key}: ${value}`);
+                }
+            }
+            
+            console.log('手动标注数据应用完成');
+        },
+        
+        // 从API获取IP信息
+        'fetchFromAPI': function() {
+            console.log('从API获取IP信息:', this.ip);
             const httpUrl = `http://ip-api.com/json/${this.ip}?lang=zh-CN&fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query`;
             const url = `https://cors-anywhere.com/${httpUrl}`;
 
