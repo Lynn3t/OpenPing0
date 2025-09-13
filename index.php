@@ -154,7 +154,7 @@ include_once(__DIR__.'/utils.php');
                 <sup style="color:red;margin-left: 2px;"></sup>
             </a>
             <a :class="{'active': activeItem == 'latency'}" href="https://linux.do/">
-                Latency
+                Linux DO
                 <sup style="color:red;margin-left: 2px;">Neo</sup>
             </a>
             <a :class="{'active': activeItem == 'ping'}" href="https://ping.pe/">
