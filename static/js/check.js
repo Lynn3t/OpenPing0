@@ -68,6 +68,20 @@ var appcheck = new Vue({
         console.log('Vue instance mounted successfully');
     },
     
+    'computed': {
+        'asnInfoUrl': function() {
+            if (!this.asnInfo || this.asnInfo === '正在加载...') {
+                return '#';
+            }
+            // 从 asnInfo 中提取 AS 编号 (例如: "AS38136 Chinanet-backbone" -> "AS38136")
+            const asnMatch = this.asnInfo.match(/AS(\d+)/);
+            if (asnMatch) {
+                return `https://ipinfo.io/AS${asnMatch[1]}`;
+            }
+            return '#';
+        }
+    },
+    
     'methods': {
         // 检查手动标注并获取IP信息
         'fetchIPInfo': function() {

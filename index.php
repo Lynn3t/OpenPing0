@@ -1119,7 +1119,7 @@ include_once(__DIR__.'/utils.php');
                         ASN
                     </div>
                     <div class="content">
-                        <a href="/" target="_blank" v-if="asnInfo">{{ asnInfo }}</a>
+                        <a :href="asnInfoUrl" target="_blank" v-if="asnInfo">{{ asnInfo }}</a>
                         <span v-else>正在获取ASN信息...</span>
                     </div>
                 </div>
