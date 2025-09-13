@@ -32,7 +32,7 @@ var appcheck = new Vue({
         'isNativeIP': '检测中...',       // 原生IP状态
         'ipNumber': 0,          // IP数字形式
         'ipnum': 0,             // IP数字形式(用于模板)
-        'sharedUsers': '1-10',      // 共享人数
+        'sharedUsers': '1-10 (极好)',      // 共享人数
         'rdns': '',             // 反向DNS
         
         // 模板需要的额外属性
@@ -107,7 +107,7 @@ var appcheck = new Vue({
             this.isNativeIP = '原生IP';
             this.longitude = '0';
             this.latitude = '0';
-            this.sharedUsers = '100-1000';
+            this.sharedUsers = '100-1000 (风险)';
         },
         
         // 处理所有数据
@@ -346,7 +346,7 @@ var appcheck = new Vue({
         // 计算共享人数
         'calculateSharedUsers': function() {
             const randomValue = this.getIPBasedRandom() % 5 + 1; // 1-5
-            const userRanges = ['1-10', '10-100', '100-1000', '1000-10000', '10000+'];
+            const userRanges = ['1-10 (极好)', '10-100 (一般)', '100-1000 (风险)', '1000-10000 (高危)', '10000+ (极度风险)'];
             this.sharedUsers = userRanges[randomValue - 1];
         },
         

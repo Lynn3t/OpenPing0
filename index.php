@@ -751,20 +751,23 @@ include_once(__DIR__.'/utils.php');
         position: relative;
         cursor: default;
     }
-    .usecountbar[usecount='1 - 10 (极好)']{
+    .usecountbar[usecount='1-10 (极好)']{
         background: limegreen;
     }
-    .usecountbar[usecount='10 - 100 (一般)']{
+    .usecountbar[usecount='10-100 (一般)']{
         background: #b5db60;
     }
-    .usecountbar[usecount='100 - 1000 (风险)']{
+    .usecountbar[usecount='100-1000 (风险)']{
         background: #f7aa1d;
     }
-    .usecountbar[usecount='1000 - 10000 (高危)']{
+    .usecountbar[usecount='1000-10000 (高危)']{
         background: #e06133;
     }
     .usecountbar[usecount='10000+ (极度风险)']{
         background: #f3141d;
+    }
+    .usecountbar[usecount='检测中...']{
+        background: #888;
     }
     .tipad,.closead{
         position: absolute;
