@@ -80,8 +80,8 @@ var appcheck = new Vue({
         'fetchIPInfo': function() {
             console.log('开始获取IP信息:', this.ip);
             const httpUrl = `http://ip-api.com/json/${this.ip}?lang=zh-CN&fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query`;
-            const url = `https://corsproxy.io/?url=${httpUrl}`;
-            
+            const url = `https://cors-anywhere.com/${httpUrl}`;
+
             axios({
                 method: 'GET',
                 url: url
