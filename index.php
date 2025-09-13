@@ -1231,7 +1231,7 @@ include_once(__DIR__.'/utils.php');
                         IP 位置
                     </div>
                     <div class="content">
-                        <span v-if="locationInfo">{{ locationInfo }}</span>
+                        <span v-if="locationInfo" v-html="locationInfo"></span>
                         <span v-else>正在加载位置信息...</span>
                         <span class="report" @click="showErrorReport">错误提交</span>
                     </div>

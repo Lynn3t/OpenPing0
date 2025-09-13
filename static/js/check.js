@@ -377,17 +377,12 @@ var appcheck = new Vue({
             );
         },
         
-        // 获取国旗emoji
+        // 获取国旗图片
         'getCountryFlag': function(countryCode) {
             if (!countryCode) return '';
             
-            const flagMap = {
-                'CN': '🇨🇳', 'US': '🇺🇸', 'JP': '🇯🇵', 'KR': '🇰🇷', 'TW': '🇹🇼',
-                'HK': '🇭🇰', 'SG': '🇸🇬', 'GB': '🇬🇧', 'DE': '🇩🇪', 'FR': '🇫🇷',
-                'CA': '🇨🇦', 'AU': '🇦🇺', 'RU': '🇷🇺', 'IN': '🇮🇳', 'BR': '🇧🇷'
-            };
-            
-            return flagMap[countryCode] || '🌍';
+            const lowerCode = countryCode.toLowerCase();
+            return `<img src="https://hampusborgos.github.io/country-flags/svg/${lowerCode}.svg" alt="${countryCode}" style="width: 16px; height: 12px; display: inline-block; vertical-align: middle; margin-right: 4px;">`;
         },
         
         // 保留的原有方法
