@@ -1352,7 +1352,7 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
                         </span>
                     </div>
                     <div class="content">
-                        <span v-if="isNativeIP" class="label orange" :style="isNativeIP === '原生IP' ? 'background:limegreen;' : 'background: rgb(255, 170, 0);'">{{ isNativeIP }}</span>
+                        <span v-if="isNativeIP" class="label orange" :style="isNativeIP === '原生IP' ? 'background:rgba(115, 115, 115, 1);' : 'background: rgba(115, 115, 115, 1);'">{{ isNativeIP }}</span>
                         <span v-else class="label orange">检测中...</span>
                     </div>
                 </div>
@@ -1397,8 +1397,8 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
                         </span>
                     </div>
                     <div class="content">
-                        <div v-if="sharedUsers" class="usecountbar" :usecount="sharedUsers + ' (根据统计)'" :title="'1-10(极好), 10-100(一般), 100-1000(风险), 1000-10000(高危), 10000+(极度风险). 当前: ' + sharedUsers">
-                        {{ sharedUsers }} (根据统计)
+                        <div v-if="sharedUsers" class="usecountbar" :usecount="sharedUsers" :title="'1-10(极好), 10-100(一般), 100-1000(风险), 1000-10000(高危), 10000+(极度风险). 当前: ' + sharedUsers">
+                        {{ sharedUsers }}
                         </div>
                         <div v-else class="usecountbar" usecount="检测中..." title="正在检测共享用户数...">
                         检测中...
