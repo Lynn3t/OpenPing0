@@ -13,7 +13,7 @@ class ManualIPAnnotation:
     def __init__(self):
         self.manual_data = {}
         
-        # 风险等级选项
+        # 风险等级选项 - 与JavaScript保持一致
         self.risk_levels = {
             '极度纯净IP': {'color': '#006400', 'min_score': 0, 'max_score': 15},
             '纯净IP': {'color': '#008000', 'min_score': 16, 'max_score': 25},
