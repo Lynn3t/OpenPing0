@@ -144,7 +144,7 @@ include_once(__DIR__.'/utils.php');
 <body>
 <div class="top" id="top">
     <div class="container">
-        <div class="title"><a href="/">PING<span>0</span></a></div>
+        <div class="title"><a href="/">Ping<span>X</span></a></div>
         <div class="menu" @click="showmenu">
             <img src="/static/images/menu.png" alt="">
         </div>
@@ -153,9 +153,9 @@ include_once(__DIR__.'/utils.php');
                 IP 查询
                 <sup style="color:red;margin-left: 2px;"></sup>
             </a>
-            <a :class="{'active': activeItem == 'latency'}" href="https://ping.pe/">
+            <a :class="{'active': activeItem == 'latency'}" href="https://linux.do/">
                 Latency
-                <sup style="color:red;margin-left: 2px;">New</sup>
+                <sup style="color:red;margin-left: 2px;">Neo</sup>
             </a>
             <a :class="{'active': activeItem == 'ping'}" href="https://ping.pe/">
                 Ping
@@ -1175,12 +1175,8 @@ include_once(__DIR__.'/utils.php');
                         href="/" target="_blank"
                         title='"IDC机房IP" 特指机房专用的IP，除此外的IP均标记为 "家庭宽带IP"。
 关于识别是 IDC机房IP 还是 家庭宽带IP，可以根据上面的 ASN所有者 和 企业是否为ISP来简单的判断。
-这也是其它网站所使用的方法，然而这只能说明这个IP的拥有者是ISP，并不代表此IP实际使用在家庭宽带里。
+这也是 PingX 所使用的方法。然而这只能说明这个IP的拥有者是ISP，并不代表此IP实际使用在家庭宽带里。
 例如国内的IDC服务器IP，大部分都是归属于电信联通移动三大运营商，他们是ISP，但这些IP是用在IDC服务器里的，国外也同理。
-要更准确的标识一个IP实际使用在家庭宽带里还是IDC机房里，需要对每个IP段进行标识，这也是 Ping0 所使用的方法。
-Ping0 花费了大量的人力和时间对每一个IP段进行了标识，以准确的标识IP实际是用在家庭宽带里还是IDC机房里。
-所以有的 IP 在其它网站里显示为ISP，但是 Ping0 里会显示为 IDC ，因为 Ping0 的数据粒度更小，更精确。
-综上所述，其它网站只能标识IP的所有者是ISP还是IDC，而 Ping0 能准确识别IP的实际使用者是家庭还是IDC。
 '>(说明?)</a>
                     </div>
                     <div class="content">
@@ -1205,8 +1201,8 @@ Ping0 花费了大量的人力和时间对每一个IP段进行了标识，以准
                             <a class="fielddesc" style="margin-left: 10px;font-size: 10px;color:deepskyblue;"
                             href="/" target="_blank"
                             title="风控值代表IP的风险程度，值越大，风险越高, 50以内安全，70以上可直接拉黑。
-Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，发送垃圾邮件，作为木马病毒的C&C服务等行为，以及危险行为的次数和频率来进行风控打分。
-请查看 CentOS 的 /var/log/secure 文件或者 Debian 的 journalctl -u ssh.service 的内容，这里都是一些尝试爆破你SSH密码的风险IP。">(说明?)</a>
+PingX 通过关键词监测IP是否可能有扫描，爆破，爬虫，对外攻击，发送垃圾邮件，作为木马病毒的C&C服务等行为，
+以及危险行为的次数和频率来进行风控打分。">(说明?)</a>
                         </span>
                     </div>
                     <div class="content">
@@ -1271,7 +1267,7 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
                         <span>共享人数
                             <a class="fielddesc" style="margin-left: 10px;font-size: 10px;color:deepskyblue;"
                             href="/" target="_blank"
-                            title="该 IP 过去一年的使用人数，基于全网大数据监控的估算值，可以判断该 IP 有多少个人一起使用。">(说明?)</a>
+                            title="该 IP 过去一年的使用人数，基于随机数的猜测值，难以判断该 IP 有多少个人一起使用。">(说明?)</a>
                         </span>
                     </div>
                     <div class="content">
