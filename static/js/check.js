@@ -80,7 +80,7 @@ var appcheck = new Vue({
         'fetchIPInfo': function() {
             console.log('开始获取IP信息:', this.ip);
             const httpUrl = `http://ip-api.com/json/${this.ip}?lang=zh-CN&fields=status,message,continent,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,isp,org,as,asname,reverse,mobile,proxy,hosting,query`;
-            const url = `https://api.allorigins.win/raw?url=${encodeURIComponent(httpUrl)}`;
+            const url = `https://corsproxy.io/?url=${httpUrl}`;
             
             axios({
                 method: 'GET',
@@ -362,7 +362,7 @@ var appcheck = new Vue({
             const data = this.apiData;
             // 这里需要IP注册地信息，暂时使用定位地作为简单判断
             // 实际应用中需要查询IP注册数据库
-            this.isNativeIP = '原生IP'; // 默认显示原生IP
+            this.isNativeIP = 'https://bgp.he.net/'; // 默认显示原生IP
         },
         
         // 获取国旗emoji
@@ -428,7 +428,7 @@ var appcheck = new Vue({
             this.aichecktext = '检测中...';
             // 模拟API调用延迟
             setTimeout(() => {
-                this.aicheck = '<span class="label green">家庭宽带IP</span> (AI检测结果，仅供参考)';
+                this.aicheck = '<span class="label green">我不知道！！</span>';
                 this.aichecktext = '重新检测';
             }, 1000);
         }

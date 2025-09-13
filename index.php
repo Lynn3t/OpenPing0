@@ -16,7 +16,7 @@ include_once(__DIR__.'/utils.php');
         html, body{
             margin: 0;
             padding: 0;
-            background: #000;
+            background: #ebebeb url('/static/images/light.png');
             overflow: auto;
         }
         body{
@@ -287,7 +287,7 @@ include_once(__DIR__.'/utils.php');
 <script src="/static/js/FileSaver.min.js"></script>
 <style type="text/css">
     html,body{
-        background: #000;
+        background: #ebebeb url('/static/images/light.png');
         font-family: "微软雅黑";
         font-size: 14px;
         overflow: auto;
@@ -332,7 +332,9 @@ include_once(__DIR__.'/utils.php');
         color: #0096e6;
     }
     #check>.container{
-        margin-top: -250px;
+        margin-top: -450px;
+        position: relative;
+        z-index: 10;
     }
     .info{
         border: 1px solid #eee;
@@ -343,7 +345,7 @@ include_once(__DIR__.'/utils.php');
         padding: 2px;
     }
     .info.asninfo{
-        margin-top: 10px;
+        margin-top: -230px;
     }
     .info>.title{
         background: linear-gradient(45deg, #e6efff, #fcfaff);
@@ -877,7 +879,7 @@ include_once(__DIR__.'/utils.php');
             border-radius: 10px;
         }
         #check>.container{
-            margin-top: -330px;
+            margin-top: -480px;
         }
         #check .info{
             margin: 0 10px;
@@ -983,7 +985,7 @@ include_once(__DIR__.'/utils.php');
             margin: 20px 10px 10px 10px;
         }
         #check>.container{
-            margin-top: -310;
+            margin-top: -460px;
         }
         .info>.content{
             font-size: 12px;
@@ -1502,7 +1504,7 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
     console.log('Window IP:', window.ip);
     console.log('DOM loaded, initializing Vue app...');
 </script>
-<script src="/static/js/check.js?v=2024120901"></script>
+<script src="/static/js/check.js?v=<?php echo date('YmdHis'); ?>"></script>
 <script>
 
     document.addEventListener('DOMContentLoaded', function() {
