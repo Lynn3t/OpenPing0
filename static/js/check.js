@@ -52,22 +52,15 @@ var appcheck = new Vue({
             ipType: this.ipType
         });
         
-        // 初始化IP转换
-        if (this.ip && this.ip !== '') {
+        // 如果没有IP或IP为空，先获取用户真实IP
+        if (!this.ip || this.ip === '') {
+            this.fetchUserIP();
+        } else {
             this.ipToNumber();
             // 延迟一秒后获取IP信息，给Vue足够时间完成初始渲染
             setTimeout(() => {
                 this.fetchIPInfo();
             }, 1000);
-        } else {
-            // 如果没有IP，显示默认信息
-            this.locationInfo = '未获取到IP信息';
-            this.asnInfo = '未知';
-            this.asnOwner = '未知';
-            this.organization = '未知';
-            this.ipType = '未知';
-            this.riskLevel = '未知';
-            this.isNativeIP = '未知';
         }
     },
     
@@ -428,6 +421,72 @@ var appcheck = new Vue({
                    firstFour === '192.' ||
                    firstFour === '127.' ||
                    firstFour === '169.';
+        },
+        
+        // 获取用户真实IP
+        'fetchUserIP': function() {
+            console.log('开始获取用户真实IP...');
+            
+            axios.get('https://ipv4.icanhazip.com/')
+                .then(response => {
+                    const userIP = response.data.trim();
+                    if (userIP && userIP.match(/^\d+\.\d+\.\d+\.\d+$/)) {
+                        console.log('获取到用户IP:', userIP);
+                        this.ip = userIP;
+                        this.ipToNumber();
+                        setTimeout(() => {
+                            this.fetchIPInfo();
+                        }, 500);
+                    } else {
+                        console.error('获取到的IP格式不正确:', userIP);
+                        this.showDefaultValues();
+                    }
+                })
+                .catch(error => {
+                    console.error('获取用户IP失败:', error);
+                    // 尝试备用服务
+                    this.fetchUserIPFallback();
+                });
+        },
+        
+        // 备用IP获取方法
+        'fetchUserIPFallback': function() {
+            const fallbackServices = [
+                'https://api.ipify.org/',
+                'https://ipv4.ident.me/'
+            ];
+            
+            let serviceIndex = 0;
+            const tryNextService = () => {
+                if (serviceIndex >= fallbackServices.length) {
+                    console.error('所有IP获取服务都失败了');
+                    this.showDefaultValues();
+                    return;
+                }
+                
+                axios.get(fallbackServices[serviceIndex])
+                    .then(response => {
+                        const userIP = response.data.trim();
+                        if (userIP && userIP.match(/^\d+\.\d+\.\d+\.\d+$/)) {
+                            console.log('通过备用服务获取到用户IP:', userIP);
+                            this.ip = userIP;
+                            this.ipToNumber();
+                            setTimeout(() => {
+                                this.fetchIPInfo();
+                            }, 500);
+                        } else {
+                            serviceIndex++;
+                            tryNextService();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('备用服务失败:', fallbackServices[serviceIndex], error);
+                        serviceIndex++;
+                        tryNextService();
+                    });
+            };
+            
+            tryNextService();
         },
         
         // AI检测 - 简化版
