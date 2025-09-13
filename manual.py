@@ -15,11 +15,12 @@ class ManualIPAnnotation:
         
         # 风险等级选项
         self.risk_levels = {
-            '安全': {'color': '#4CAF50', 'min_score': 0, 'max_score': 30},
-            '低风险': {'color': '#FFC107', 'min_score': 31, 'max_score': 50},
-            '中风险': {'color': '#FF9800', 'min_score': 51, 'max_score': 70},
-            '高风险': {'color': '#F44336', 'min_score': 71, 'max_score': 90},
-            '极高风险': {'color': '#9C27B0', 'min_score': 91, 'max_score': 100}
+            '极度纯净IP': {'color': '#006400', 'min_score': 0, 'max_score': 15},
+            '纯净IP': {'color': '#008000', 'min_score': 16, 'max_score': 25},
+            '一般IP': {'color': '#9ACD32', 'min_score': 26, 'max_score': 40},
+            '微风险IP': {'color': '#FFD700', 'min_score': 41, 'max_score': 50},
+            '一般风险IP': {'color': '#FF8C00', 'min_score': 51, 'max_score': 70},
+            '极度风险IP': {'color': '#FF0000', 'min_score': 71, 'max_score': 100}
         }
         
         # IP类型选项
@@ -75,8 +76,8 @@ class ManualIPAnnotation:
                 'latitude': '0',
                 'ipType': '检测中...',
                 'riskScore': 0,
-                'riskLevel': '检测中',
-                'riskColor': '#999999',
+                'riskLevel': '极度纯净IP',
+                'riskColor': '#006400',
                 'isNativeIP': '检测中...',
                 'ipNumber': 0,
                 'ipnum': 0,

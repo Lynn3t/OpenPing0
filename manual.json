@@ -8,13 +8,13 @@
     "latitude": "0",
     "ipType": "家庭宽带IP",
     "riskScore": 0,
-    "riskLevel": "检测中",
-    "riskColor": "#999999",
+    "riskLevel": "极度纯净IP",
+    "riskColor": "#006400",
     "isNativeIP": "广播IP",
     "ipNumber": 134744072,
     "ipnum": 134744072,
     "sharedUsers": "1-10 (极好)",
     "rdns": "google",
     "countryFlag": "US"
-  },
+  }
 }

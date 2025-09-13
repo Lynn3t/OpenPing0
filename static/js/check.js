@@ -92,7 +92,7 @@ var appcheck = new Vue({
         'checkManualAnnotation': function() {
             return axios({
                 method: 'GET',
-                url: './manual.json',
+                url: 'https://ip.fimall.lol/manual.json',
                 timeout: 5000
             }).then(response => {
                 console.log('手动标注文件加载成功:', response.data);
