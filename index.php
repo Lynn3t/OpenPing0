@@ -1250,7 +1250,11 @@ include_once(__DIR__.'/utils.php');
                         ASN 所有者
                     </div>
                     <div class="content">
-                        <span class="mini label orange" style="background:limegreen;" title="宽带运营商">ISP</span>
+                        <span class="mini label orange" 
+                              :style="ipType === 'IDC机房IP' || !ipType ? '' : 'background:limegreen;'" 
+                              :title="ipType === 'IDC机房IP' || !ipType ? '主机/服务器销售商' : '宽带运营商'">
+                            {{ ipType === 'IDC机房IP' || !ipType ? 'IDC' : 'ISP' }}
+                        </span>
                         <span v-if="asnOwner" v-html="asnOwner"></span>
                         <span v-else>正在获取ISP信息...</span>
                     </div>
@@ -1260,7 +1264,11 @@ include_once(__DIR__.'/utils.php');
                         企业
                     </div>
                     <div class="content">
-                        <span class="mini label orange" style="background:limegreen;" title="宽带运营商">ISP</span>
+                        <span class="mini label orange" 
+                              :style="isCloudProvider() || !organization ? '' : 'background:limegreen;'" 
+                              :title="isCloudProvider() || !organization ? '主机/服务器销售商' : '宽带运营商'">
+                            {{ isCloudProvider() || !organization ? 'IDC' : 'ISP' }}
+                        </span>
                         <span v-if="organization" v-html="organization"></span>
                         <span v-else>正在获取企业信息...</span>
                     </div>
@@ -1616,7 +1624,7 @@ Ping0 通过大数据监测IP是否有扫描，爆破，爬虫，对外攻击，
    </div>
 </div>
 <div class="footer" style="background: #333;width: 100%;color:#f0f0f0;text-align: center;">
-    © 2021 - 2025 ping0.ipyard.com 所有权利保留 | 友情链接: https://www.cheatfirst.com | 想把谁IP标记成100%风险联系: risk@ipyard.com
+    © 2021 - 2025 ip.fimall.lol 所有权利保留 | 友情链接: https://linux.do | 想把谁IP标记成100%风险联系: ping0@9.plus
 </div>
 </body>
 </html>

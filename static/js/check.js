@@ -7,7 +7,7 @@ console.log('Available window variables:', {
 });
 
 var appcheck = new Vue({
-    'el': '#app',
+    'el': '#check',
     'data': {
         // 基础信息
         'tar': window.tar || '',
@@ -170,7 +170,7 @@ var appcheck = new Vue({
             
             if (data.isp) {
                 const searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(data.isp)}`;
-                this.asnOwner = `(ISP/IDC) ${data.isp}—<a href="${searchUrl}" target="_blank">ISP链接</a>`;
+                this.asnOwner = `${data.isp} —<a href="${searchUrl}" target="_blank">ISP</a>`;
             }
         },
         
@@ -180,7 +180,7 @@ var appcheck = new Vue({
             
             if (data.org) {
                 const searchUrl = `https://www.bing.com/search?q=${encodeURIComponent(data.org)}`;
-                this.organization = `(ISP/IDC) ${data.org}—<a href="${searchUrl}" target="_blank">ORG链接</a>`;
+                this.organization = `${data.org} —<a href="${searchUrl}" target="_blank">ORG</a>`;
             }
             
             this.longitude = data.lon || '';
@@ -365,6 +365,18 @@ var appcheck = new Vue({
             this.isNativeIP = 'https://bgp.he.net/'; // 默认显示原生IP
         },
         
+        // 判断是否为云服务商
+        'isCloudProvider': function() {
+            const data = this.apiData;
+            const isp = (data.isp || '').toLowerCase();
+            const org = (data.org || '').toLowerCase();
+            const cloudProviders = this.getCloudProviders();
+            
+            return cloudProviders.some(keyword => 
+                isp.includes(keyword) || org.includes(keyword)
+            );
+        },
+        
         // 获取国旗emoji
         'getCountryFlag': function(countryCode) {
             if (!countryCode) return '';
@@ -385,7 +397,7 @@ var appcheck = new Vue({
         
         // 生成图像
         'toimage': function() {
-            domtoimage.toPng(document.getElementById('app'))
+            domtoimage.toPng(document.getElementById('check'))
                 .then(function(dataUrl) {
                     window.open(dataUrl, '_blank');
                 })
