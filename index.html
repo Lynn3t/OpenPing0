@@ -1,6 +1,4 @@
-<?php
-include_once(__DIR__.'/utils.php');
-?><html lang="en">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
@@ -10,8 +8,8 @@ include_once(__DIR__.'/utils.php');
     <script src="/static/js/vue.min.js"></script>
     <script src="/static/js/axios.min.js"></script>
     <link rel="icon" href="/favico.ico" type="image/x-icon" />
-    <title><?php echo $concurrentIpAddr; ?>-高精度IP地址归属地查询-IP风控值查询-原生IP查询-IP类型查询-家庭宽带IP查询-全球小鸡监控平台</title>
-    <meta name="description" content="<?php echo $concurrentIpAddr.'-'.$asnNum.'-'.$asnName.'-'.$asnDomain; ?>">
+    <title>高精度IP地址归属地查询-IP风控值查询-原生IP查询-IP类型查询-家庭宽带IP查询-全球小鸡监控平台</title>
+    <meta name="description" content="高精度IP地址归属地查询">
     <style type="text/css">
         html, body{
             margin: 0;
@@ -168,19 +166,19 @@ include_once(__DIR__.'/utils.php');
 
             <div :class="{'active': activeItem == '24hour' || activeItem == '5day' || activeItem == '30day'
             || activeItem == '300day'}" class="multimenu" @mouseenter="showmenuvps=true" @mouseleave="showmenuvps=false">
-                小鸡监控 <span style="transform: scale(1.2, 0.5);display: inline-block;margin-left: 4px;">V</span>
+                友商查询 <span style="transform: scale(1.2, 0.5);display: inline-block;margin-left: 4px;">V</span>
                 <div class="submenu" v-show="showmenuvps">
-                    <a :class="{'active': activeItem == '24hour'}" href="/">
-                        近24小时
+                    <a :class="{'active': activeItem == '24hour'}" href="https://www.ip2location.com/">
+                        IP2Location
                     </a>
-                    <a :class="{'active': activeItem == '5day'}" href="/">
-                        近5天
+                    <a :class="{'active': activeItem == '5day'}" href="https://www.maxmind.com/en/locate-my-ip-address">
+                        MaxMind
                     </a>
-                    <a :class="{'active': activeItem == '30day'}" href="/">
-                        近一个月
+                    <a :class="{'active': activeItem == '30day'}" href="https://ipinfo.io/what-is-my-ip">
+                        IPInfo
                     </a>
-                    <a :class="{'active': activeItem == '300day'}" href="/">
-                        近一年
+                    <a :class="{'active': activeItem == '300day'}" href="https://ipdata.co/">
+                        IPData
                     </a>
 
                 </div>
@@ -348,7 +346,7 @@ include_once(__DIR__.'/utils.php');
         border-radius: 8px 8px 0 0;
         justify-content: space-between;
     }
-    
+
     .info>.content{
         font-size: 13px;
         background-color: white;
@@ -761,7 +759,7 @@ include_once(__DIR__.'/utils.php');
     .usecountbar[usecount='检测中...']{
         background: #888;
     }
-    
+
     @media screen and (max-width: 1919px) {
         .container{
             min-width: 1000px;
@@ -774,7 +772,7 @@ include_once(__DIR__.'/utils.php');
             overflow-x: auto;
         }
     }
-    
+
     @media screen and (max-width: 1300px) {
         .container{
             width: 100%;
@@ -914,7 +912,7 @@ include_once(__DIR__.'/utils.php');
         .asninfo.prefixes,.asninfo.orgs,.asninfo.rirs{
             display: none;
         }
-        
+
         #bdmap{
             margin: 0;
         }
@@ -1050,7 +1048,7 @@ include_once(__DIR__.'/utils.php');
             text-align: center;
         }
     }
-    
+
 </style>
 
 <div id="check">
@@ -1076,7 +1074,7 @@ include_once(__DIR__.'/utils.php');
                 <div>
                     <img src="/static/images/lead.png" alt="">查询结果
                 </div>
-                
+
                 <a style="float:right;color:white;cursor: pointer;text-decoration: none;border-bottom: 1px solid deepskyblue;color:#2e67fe;
                 border-radius: 5px;border:1px solid #2e67fe;padding: 2px 8px;display: flex;align-items: center;" @click="toimage">
                     <img src="/static/images/jiandao.png" alt="" style="width: 10px;height: 10px;margin-right: 5px;">
@@ -1093,13 +1091,13 @@ include_once(__DIR__.'/utils.php');
                             <span style="margin-right: 5px;display: inline-block;">{{ showip ? ip : '************' }}</span>
                             <img :src="showip ? '/static/images/show.png' : '/static/images/hide.png'" alt="" @click="showip=!showip">
                         </div>
-                        
+
                         <span v-if="rdns.length>0">({{rdns}})</span>
 
                         <div class="op">
-                            <a target="_blank" href="https://ping.pe/<?php echo $concurrentIpAddr; ?>">ping</a>
+                            <a target="_blank" :href="'https://ping.pe/' + ip">ping</a>
                             |
-                            <a target="_blank" href="https://bgp.ping.pe/<?php echo $concurrentIpAddr; ?>">trace</a>
+                            <a target="_blank" :href="'https://bgp.ping.pe/' + ip">trace</a>
                         </div>
 
                     </div>
@@ -1128,8 +1126,8 @@ include_once(__DIR__.'/utils.php');
                         ASN 所有者
                     </div>
                     <div class="content">
-                        <span class="mini label orange" 
-                              :style="ipType === 'IDC机房IP' || !ipType ? '' : 'background:limegreen;'" 
+                        <span class="mini label orange"
+                              :style="ipType === 'IDC机房IP' || !ipType ? '' : 'background:limegreen;'"
                               :title="ipType === 'IDC机房IP' || !ipType ? '主机/服务器销售商' : '宽带运营商'">
                             {{ ipType === 'IDC机房IP' || !ipType ? 'IDC' : 'ISP' }}
                         </span>
@@ -1142,8 +1140,8 @@ include_once(__DIR__.'/utils.php');
                         企业
                     </div>
                     <div class="content">
-                        <span class="mini label orange" 
-                              :style="isCloudProvider() || !organization ? '' : 'background:limegreen;'" 
+                        <span class="mini label orange"
+                              :style="isCloudProvider() || !organization ? '' : 'background:limegreen;'"
                               :title="isCloudProvider() || !organization ? '主机/服务器销售商' : '宽带运营商'">
                             {{ isCloudProvider() || !organization ? 'IDC' : 'ISP' }}
                         </span>
@@ -1171,7 +1169,7 @@ include_once(__DIR__.'/utils.php');
                 </div>
                                 <div class="line line-iptype">
                     <div class="name">
-                        <span>IP类型</span><a class="fielddesc" style="margin-left: 10px;font-size: 10px;color:deepskyblue;" 
+                        <span>IP类型</span><a class="fielddesc" style="margin-left: 10px;font-size: 10px;color:deepskyblue;"
                         href="/" target="_blank"
                         title='"IDC机房IP" 特指机房专用的IP，除此外的IP均标记为 "家庭宽带IP"。
 关于识别是 IDC机房IP 还是 家庭宽带IP，可以根据上面的 ASN所有者 和 企业是否为ISP来简单的判断。
@@ -1182,7 +1180,7 @@ include_once(__DIR__.'/utils.php');
                     <div class="content">
                         <span v-if="ipType" class="label" :class="ipType === '家庭宽带IP' ? 'green' : 'orange'" :style="ipType === '家庭宽带IP' ? 'background:limegreen;' : ''">{{ ipType }}</span>
                         <span v-else class="label orange">检测中...</span>
-                        
+
                         <a class="ispwhy" href="/" target="_blank"
                         style="color: #2e67fe;
                         text-decoration: none;
@@ -1217,7 +1215,7 @@ PingX 通过关键词监测IP是否可能有扫描，爆破，爬虫，对外攻
                                 <div class="line line-nativeip">
                     <div class="name">
                         <span>原生 IP</span>
-                        <a class="fielddesc" style="margin-left: 10px;font-size: 10px;color:deepskyblue;" 
+                        <a class="fielddesc" style="margin-left: 10px;font-size: 10px;color:deepskyblue;"
                         href="/" target="_blank"
                         title="绝大部分的家庭宽带 IP 都属于原生 IP，部分当地的本地 IDC 提供商也会使用原生 IP。
 而一些全球性的跨国 IDC 服务商(AWS、GCP、Azure 等)为了方便管理，通常会购买一些大的 IP 段，然后广播到不同的国家, 这些即为 广播 IP。
@@ -1230,11 +1228,11 @@ PingX 通过关键词监测IP是否可能有扫描，爆破，爬虫，对外攻
                         <span v-else class="label orange">检测中...</span>
                     </div>
                 </div>
-                
+
                 <div class="line line-aicheck">
                     <div class="name">
                         <span>大模型检测</span>
-                        <a class="fielddesc" style="margin-left: 10px;font-size: 10px;color:deepskyblue;" 
+                        <a class="fielddesc" style="margin-left: 10px;font-size: 10px;color:deepskyblue;"
                         href="/" target="_blank"
                         title="使用AI大模型来判断是否为家庭宽带，该模型，基于 qwen2.5-0.5b 模型，使用1000多万条IP数据进行微调训练所得。大模型判断的结果仅供参考，准确率未知, 请自行判断。">(说明?)</a>
                         </span>
@@ -1281,7 +1279,7 @@ PingX 通过关键词监测IP是否可能有扫描，爆破，爬虫，对外攻
                 </div>
                             </div>
         </div>
-        
+
     </div>
     <div id="error_report" v-show="errorreport" style="display: none;">
         <div class="title">错误提交</div>
@@ -1289,11 +1287,11 @@ PingX 通过关键词监测IP是否可能有扫描，爆破，爬虫，对外攻
         <div>
             <div class="line">
                 <div>IP地址:</div>
-                <div style="color:#aaa;"><?php echo $concurrentIpAddr; ?></div>
+                <div style="color:#aaa;">{{ ip }}</div>
             </div>
             <div class="line">
                 <div>IP位置:</div>
-                <div style="color:#aaa;"><?php echo $ip_country.' '.$ip_stateOProvince.' '.$ip_city; ?></div>
+                <div style="color:#aaa;">{{ locationInfo }}</div>
             </div>
             <div class="line line-newaddr">
                 <div><span style="color:red;margin-right: 3px;">*</span>正确的IP位置:</div>
@@ -1306,7 +1304,7 @@ PingX 通过关键词监测IP是否可能有扫描，爆破，爬虫，对外攻
         </div>
         <div class="btnreport" @click="submitErrorReport">提交</div>
     </div>
-    
+
     <textarea id="copy" style="width: 1px;height: 1px;opacity: 0;position: absolute;" v-model="copydata" ref="copyele">
 
     </textarea>
@@ -1314,21 +1312,41 @@ PingX 通过关键词监测IP是否可能有扫描，爆破，爬虫，对外攻
 </div><!-- End of #check -->
 
 <script type="text/javascript">
-    window.ip = '<?php echo $concurrentIpAddr; ?>';
-    window.tar= '';
-    window.ipnum = '114514';
-    window.asndomain = '<?php echo $asnDomain; ?>';
-    window.orgdomain = '<?php echo $asnDomain; ?>';
-    window.rdns = '';
-    window.longitude = '<?php echo $ip_longitude; ?>';
-    window.latitude = '<?php echo $ip_latitude; ?>';
-    window.loc = `<?php echo $ip_country.' '.$ip_stateOProvince.' '.$ip_city; ?>`;
-    
+    // URL路由解析 - 从路径中提取IP（替代原PHP的utils.php逻辑）
+    (function() {
+        var path = window.location.pathname.replace(/^\/+|\/+$/g, '');
+        var parts = path === '' ? [] : path.split('/');
+        var routeIp = '';
+
+        if (parts.length >= 2 && parts[0].toLowerCase() === 'ip') {
+            var candidate = parts[1].trim();
+            // IPv4验证
+            var ipv4Regex = /^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/;
+            var match = candidate.match(ipv4Regex);
+            if (match && parseInt(match[1]) <= 255 && parseInt(match[2]) <= 255 && parseInt(match[3]) <= 255 && parseInt(match[4]) <= 255) {
+                routeIp = candidate;
+            } else if (/^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/.test(candidate)) {
+                // 域名 - 无法在前端解析，留空让check.js通过API处理
+                routeIp = candidate;
+            }
+        }
+
+        window.ip = routeIp;
+        window.tar = '';
+        window.ipnum = '114514';
+        window.asndomain = '';
+        window.orgdomain = '';
+        window.rdns = '';
+        window.longitude = '0.0';
+        window.latitude = '0.0';
+        window.loc = '';
+    })();
+
     // 调试信息
     console.log('Window IP:', window.ip);
     console.log('DOM loaded, initializing Vue app...');
 </script>
-<script src="/static/js/check.js?v=<?php echo date('YmdHis'); ?>"></script>
+<script src="/static/js/check.js"></script>
 <style>
     .bottommenu{
         display: none;

@@ -51,10 +51,13 @@ var appcheck = new Vue({
             asnInfo: this.asnInfo,
             ipType: this.ipType
         });
-        
+
         // 如果没有IP或IP为空，先获取用户真实IP
         if (!this.ip || this.ip === '') {
             this.fetchUserIP();
+        } else if (this.isDomainName(this.ip)) {
+            // 如果是域名，先解析为IP
+            this.resolveDomain(this.ip);
         } else {
             this.ipToNumber();
             // 延迟一秒后获取IP信息，给Vue足够时间完成初始渲染
@@ -106,7 +109,7 @@ var appcheck = new Vue({
         'checkManualAnnotation': function() {
             return axios({
                 method: 'GET',
-                url: 'https://ip.fimall.lol/manual.json',
+                url: '/manual.json',
                 timeout: 5000
             }).then(response => {
                 console.log('手动标注文件加载成功:', response.data);
@@ -593,6 +596,53 @@ var appcheck = new Vue({
             }
         },
         
+        // 判断是否为域名
+        'isDomainName': function(str) {
+            return /^([a-zA-Z0-9-]+\.)+[a-zA-Z]{2,}$/.test(str);
+        },
+
+        // 解析域名为IP地址
+        'resolveDomain': function(domain) {
+            console.log('解析域名:', domain);
+            var self = this;
+            // 使用 dns.google 的 DNS-over-HTTPS 解析域名
+            axios.get('https://dns.google/resolve?name=' + encodeURIComponent(domain) + '&type=A')
+                .then(function(response) {
+                    var data = response.data;
+                    if (data.Answer && data.Answer.length > 0) {
+                        // 找到第一个A记录
+                        for (var i = 0; i < data.Answer.length; i++) {
+                            if (data.Answer[i].type === 1) { // A record
+                                var resolvedIp = data.Answer[i].data;
+                                console.log('域名解析结果:', domain, '->', resolvedIp);
+                                self.ip = resolvedIp;
+                                self.updatePageTitle();
+                                self.updatePingTraceLinks();
+                                self.ipToNumber();
+                                setTimeout(function() {
+                                    self.fetchIPInfo();
+                                }, 500);
+                                return;
+                            }
+                        }
+                    }
+                    // 解析失败，直接用域名尝试API查询
+                    console.warn('域名DNS解析无A记录，直接使用域名查询');
+                    self.ipToNumber();
+                    setTimeout(function() {
+                        self.fetchIPInfo();
+                    }, 500);
+                })
+                .catch(function(error) {
+                    console.error('域名解析失败:', error);
+                    // 解析失败，直接用域名尝试API查询
+                    self.ipToNumber();
+                    setTimeout(function() {
+                        self.fetchIPInfo();
+                    }, 500);
+                });
+        },
+
         // 更新ping和trace链接
         'updatePingTraceLinks': function() {
             if (this.ip) {

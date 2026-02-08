@@ -1,0 +1,10 @@
+name = "openping0"
+compatibility_date = "2024-12-01"
+
+routes = [
+  { pattern = "ip.fimall.cfd/*", zone_name = "fimall.cfd" }
+]
+
+[assets]
+directory = "./"
+not_found_handling = "single-page-application"
